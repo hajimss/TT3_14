@@ -24,12 +24,20 @@ const Balance = (props) => {
     
 
     return(
-        <div>
-            Balance
+        <div className="container" style={{border:"solid black 5px"}}>
+            <h1>Balance</h1>
             <br/>
-            Asset Balance : {assetBalance ? assetBalance : null }
+            Asset Balance : {assetBalance ? 
+            <div>
+                <h2>{assetBalance}</h2>
+            </div>
+             : null }
             <br/>
-            Cash Balance : {cashBalance ? cashBalance : null}
+            Cash Balance : {cashBalance ? 
+            <div>
+            <h2>{cashBalance}</h2>
+            </div>
+            : null}
         </div>
     );
 }

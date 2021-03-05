@@ -31,12 +31,13 @@ class Login extends React.Component {
 
     render() { 
         return (
-            <div>
-                <form onSubmit={this.onFormSubmit}>
+            <div className="container">
+                <form className="form-group" onSubmit={this.onFormSubmit}>
                     <label>Username:</label>
-                    <input onChange={e => {this.setState({username: e.target.value})}}/>
+                    <input className="form-control" onChange={e => {this.setState({username: e.target.value})}}/>
                     <label>Password:</label>
-                    <input type="password" onChange={e => {this.setState({password: e.target.value})}}/>
+                    <input className="form-control" type="password" onChange={e => {this.setState({password: e.target.value})}}/>
+                    <br/>
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
             </div>
