@@ -1,5 +1,4 @@
 import axios from "axios";
-import Chart from "react-google-charts";
 import { useState, useEffect } from "react";
 import {
   LineChart,
@@ -100,7 +99,7 @@ const HistoricalPrice = () => {
         height: "300px",
       }}
     >
-      <h2>Price History</h2>
+      <h2>TTK Price History</h2>
       <LineChart
         width={1000}
         height={500}
