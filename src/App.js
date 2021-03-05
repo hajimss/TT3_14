@@ -1,8 +1,11 @@
 import React from 'react';
 import Login from './components/Login'
 import Home from "./components/Home";
-import { Route } from "react-router-dom";
+import Balance from './components/Balance';
+import NavBar from './components/NavBar';
+import { Route, Switch } from "react-router-dom";
 import UserInfo from './components/UserInfo'
+import Logout from './components/Logout';
 
 class App extends React.Component {
     constructor(props) {
@@ -12,15 +15,24 @@ class App extends React.Component {
     render() { 
         return (
             <div>
-                <Route exact path="/">
-                    <Home/>
-                </Route>
-                <Route exact path='/userinfo'>
-                    <UserInfo/>
-                </Route>
-                <Route path="/login">
-                    <Login/>
-                </Route>
+                <NavBar/>
+                <Switch>
+                    <Route exact path="/">
+                        <Home/>
+                    </Route>
+                    <Route exact path='/userinfo'>
+                        <UserInfo/>
+                    </Route>
+                    <Route path ="/balance">
+                        <Balance/>
+                    </Route>
+                    <Route path="/login">
+                        <Login/>
+                    </Route>
+                    <Route>
+                        <Logout/>
+                    </Route>
+                </Switch>
             </div>
         );
     }
