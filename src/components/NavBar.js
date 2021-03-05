@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return(
-        <div className="navbar">
+        <div className="navbar" style={{background:"#b6dcfe"}}>
                     <Link className="navbar-brand" to="/" >Home</Link>
                     <Link className="navbar-brand"  to="/userinfo">Profile</Link>
                     {sessionStorage.getItem('accountKey') ? 
