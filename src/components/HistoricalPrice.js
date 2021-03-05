@@ -74,6 +74,7 @@ const HistoricalPrice = () => {
         "https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/pricing/historical",
         {},
         {
+          timeout: 1000000,
           headers: {
             "x-api-key": "ykOwd1IKUR3bX1I7O3yWx6QomMSqTOrG2cKUdzhg",
           },
@@ -81,8 +82,8 @@ const HistoricalPrice = () => {
       );
 
       response.then((response) => {
-        //setData(response.data);
-        InitalizeChart(response.data);
+        //setData(response.data.slice(-30));
+        InitalizeChart(response.data.slice(-30));
       });
     };
 
@@ -133,13 +134,16 @@ const HistoricalPrice = () => {
             <th>Time</th>
           </tr>
           <tbody>
-            {data.map((item) => (
-              <tr key={item.id}>
-                {Object.values(item).map((val) => (
-                  <td>{val}</td>
-                ))}
-              </tr>
-            ))}
+            {data
+              .slice(0)
+              .reverse()
+              .map((item) => (
+                <tr key={item.id}>
+                  {Object.values(item).map((val) => (
+                    <td>{val}</td>
+                  ))}
+                </tr>
+              ))}
           </tbody>
         </table>
       }
