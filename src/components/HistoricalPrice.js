@@ -1,57 +1,74 @@
 import axios from "axios";
-import { Chart } from "react-charts";
-import { useState, useEffect, useMemo } from "react";
+import Chart from "react-google-charts";
+import { useState, useEffect } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const HistoricalPrice = () => {
-  //   const url =
-  //     "https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/pricing/historical";
-  //   const xpikey = "ykOwd1IKUR3bX1I7O3yWx6QomMSqTOrG2cKUdzhg";
-  //   const accountKey = "";
-
-  // const response = await axios.post("https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/login", payload, { headers : {'x-api-key' : "ykOwd1IKUR3bX1I7O3yWx6QomMSqTOrG2cKUdzhg"}})
-  // console.log(response);
-  // sessionStorage.setItem("accountKey", response.data.accountKey);
-  // }
-  //const accountKey = sessionStorage.getItem("accountKey")
-
-  //const [response, setResponse] = useState();
   const [data, setData] = useState([]);
-  const [chartData, setChartData] = useState([]);
+  //const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    const InitalizeChart = (data) => {
-      let arr = [];
-
-      console.log(data);
-
-      data.forEach((d) => {
-        let date = new Date(d.timestamp * 1000);
-        // Hours part from the timestamp
-        let hours = date.getHours();
-        // Minutes part from the timestamp
-        let minutes = "0" + date.getMinutes();
-        // Seconds part from the timestamp
-        let seconds = "0" + date.getSeconds();
-
-        // Will display time in 10:30:23 format
-        let formattedTime =
-          hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-
-        let item = {
-          price: d.price,
-          timestamp: formattedTime,
-        };
-        arr.push(item);
-      });
-
-      let chart_data = [
-        {
-          label: "TTK",
-          data: arr,
-        },
+    const InitalizeChart = (dat) => {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
       ];
 
-      setChartData(chart_data);
+      let arr = [];
+
+      for (var i in dat) {
+        let val = dat[i];
+        var date = new Date(val.timestamp * 1000);
+        var year = date.getFullYear();
+        var month = months[date.getMonth()];
+        var day = date.getDate();
+
+        // Hours part from the timestamp
+        var hours = date.getHours();
+        // Minutes part from the timestamp
+        var minutes = "0" + date.getMinutes();
+        // Seconds part from the timestamp
+        var seconds = "0" + date.getSeconds();
+
+        var time =
+          day +
+          " " +
+          month +
+          " " +
+          year +
+          " " +
+          hours +
+          ":" +
+          minutes.substr(-2) +
+          ":" +
+          seconds.substr(-2);
+
+        arr.push({ ...val, timestamp: time });
+      }
+
+      console.log(arr);
+      setData(arr);
+
+      //arr.push([{ type: "date", label: "Day" }, "TTK"]);
     };
 
     const fetchHistoricalPrice = async () => {
@@ -66,7 +83,7 @@ const HistoricalPrice = () => {
       );
 
       response.then((response) => {
-        setData(response.data);
+        //setData(response.data);
         InitalizeChart(response.data);
       });
     };
@@ -74,41 +91,52 @@ const HistoricalPrice = () => {
     fetchHistoricalPrice();
   }, []);
 
-  const axes = useMemo(
-    () => [
-      { primary: true, type: "linear", position: "bottom" },
-      { type: "linear", position: "left" },
-    ],
-    []
-  );
-
-  console.log(chartData);
+  //console.log(chartData);
 
   return (
     <div
       style={{
-        width: "400px",
+        width: "1200px",
         height: "300px",
       }}
     >
       <h2>Price History</h2>
-      <Chart data={chartData} axes={axes} />
-      {/* <table>
-        <tr key={"header"}>
-          <th>Price</th>
-          <th>Asset Symbol</th>
-          <th>Time</th>
-        </tr>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              {Object.values(item).map((val) => (
-                <td>{val}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+      <LineChart
+        width={1000}
+        height={500}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="timestamp" />
+        <YAxis dataKey="price" />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="price" stroke="#8884d8" />
+      </LineChart>
+      {
+        <table>
+          <tr key={"header"}>
+            <th>Price</th>
+            <th>Asset Symbol</th>
+            <th>Time</th>
+          </tr>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item.id}>
+                {Object.values(item).map((val) => (
+                  <td>{val}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      }
     </div>
   );
 };
