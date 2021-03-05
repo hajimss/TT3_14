@@ -4,7 +4,7 @@ const Profile = () => {
 
     return (
         <div className="container">
-          <header className="jumbotron">
+          <header className="">
             <h3>
               <img src="https://images-na.ssl-images-amazon.com/images/I/41jLBhDISxL.jpg"/>
             </h3>

@@ -2,6 +2,7 @@ import React from 'react';
 import Login from './components/Login'
 import Home from "./components/Home";
 import { Route } from "react-router-dom";
+import UserInfo from './components/UserInfo'
 
 class App extends React.Component {
     constructor(props) {
@@ -13,6 +14,9 @@ class App extends React.Component {
             <div>
                 <Route exact path="/">
                     <Home/>
+                </Route>
+                <Route exact path='/userinfo'>
+                    <UserInfo/>
                 </Route>
                 <Route path="/login">
                     <Login/>
