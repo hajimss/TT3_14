@@ -1,4 +1,7 @@
 import React from 'react';
+import Login from './components/Login'
+import Home from "./components/Home";
+import { Route } from "react-router-dom";
 
 class App extends React.Component {
     constructor(props) {
@@ -8,7 +11,12 @@ class App extends React.Component {
     render() { 
         return (
             <div>
-                Hello
+                <Route exact path="/">
+                    <Home/>
+                </Route>
+                <Route path="/login">
+                    <Login/>
+                </Route>
             </div>
         );
     }
