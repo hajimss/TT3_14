@@ -13,7 +13,7 @@ import {
 
 const HistoricalPrice = () => {
   const [data, setData] = useState([]);
-  //const [chartData, setChartData] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     const InitalizeChart = (dat) => {
@@ -66,8 +66,7 @@ const HistoricalPrice = () => {
 
       console.log(arr);
       setData(arr);
-
-      //arr.push([{ type: "date", label: "Day" }, "TTK"]);
+      setChartData(arr);
     };
 
     const fetchHistoricalPrice = async () => {
@@ -102,11 +101,15 @@ const HistoricalPrice = () => {
       }}
     >
       <h2>TTK Price History</h2>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer
+        width="100%"
+        height="100%"
+        style={{ overflow: "scroll" }}
+      >
         <LineChart
           width={1000}
           height={500}
-          data={data}
+          data={chartData}
           margin={{
             top: 5,
             right: 30,
@@ -123,7 +126,7 @@ const HistoricalPrice = () => {
         </LineChart>
       </ResponsiveContainer>
       {
-        <table>
+        <table className="table">
           <tr key={"header"}>
             <th>Price</th>
             <th>Asset Symbol</th>
