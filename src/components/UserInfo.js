@@ -10,19 +10,19 @@ const Profile = () => {
             </h3>
           </header>
           <p>
-            <strong>Name:</strong> {}
+            <strong>Name: Otto Abbott</strong> 
           </p>
           <p>
-            <strong>Email:</strong> {}
+            <strong>Email: group14@techtrek.com</strong> {}
           </p>
           <p>
             <strong>Age:</strong> {}
           </p>
           <p>
-            <strong>Address:</strong> {}
+            <strong>Address: 21542 Mertz Square</strong> {}
           </p>
           <p>
-            <strong>Phone Number:</strong> {}
+            <strong>Phone Number: (+65) 91722941</strong> {}
           </p>
         </div>
     );
